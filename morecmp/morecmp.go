@@ -23,6 +23,13 @@ func (f CmpFunc[T]) AndThen(next ...CmpFunc[T]) CmpFunc[T] {
 	}
 }
 
+// Reversed returns a new CmpFunc that orders the opposite of this one.
+func (f CmpFunc[T]) Reversed() CmpFunc[T] {
+	return func(a, b T) int {
+		return -f(a, b)
+	}
+}
+
 // LessFunc converts this CmpFunc into a LessFunc.
 func (f CmpFunc[T]) LessFunc() LessFunc[T] {
 	return func(a, b T) bool {
